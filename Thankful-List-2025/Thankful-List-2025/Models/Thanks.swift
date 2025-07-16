@@ -28,7 +28,7 @@ class Thanks: Identifiable {
     }
     
     var hexColor: Color {
-        Color(hex: self.color) ?? .green
+        Color(hex: self.color) ?? .blue
     }
 }
 

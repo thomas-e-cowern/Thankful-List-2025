@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct Thankful_List_2025App: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .modelContainer(for: Thanks.self)
         }
     }
 }

@@ -9,7 +9,12 @@ import SwiftUI
 
 struct ThanksListView: View {
     var body: some View {
-        Text("Thanks List")
+        NavigationStack {
+            Text("Thanks List")
+                .ThanksToolbar {
+                    print("Add tapped")
+                }
+        }
     }
 }
 

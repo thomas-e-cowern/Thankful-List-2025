@@ -9,7 +9,12 @@ import SwiftUI
 
 struct FavoritesView: View {
     var body: some View {
-        Text("Favorites View")
+        NavigationStack {
+            Text("Favorites View")
+                .ThanksToolbar {
+                    print("Add tapped")
+                }
+        }
     }
 }
 

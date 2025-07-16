@@ -14,13 +14,13 @@ struct ContentView: View {
                 Tab("Home", systemImage: "house") {
                     HomeView()
                 }
-                Tab("Home", systemImage: "list.bullet") {
+                Tab("Thanks List", systemImage: "list.bullet") {
                     ThanksListView()
                 }
-                Tab("Home", systemImage: "heart") {
+                Tab("Favorites", systemImage: "heart") {
                     FavoritesView()
                 }
-                Tab("Home", systemImage: "gear") {
+                Tab("Settings", systemImage: "gear") {
                     SettingsView()
                 }
             }

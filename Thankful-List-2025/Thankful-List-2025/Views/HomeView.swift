@@ -27,13 +27,16 @@ struct HomeView: View {
                     
                     Text("The Grateful List exists to help you keep track of people, places, experiences and things that you are grateful for in your life.")
                         .padding()
-                        .ThanksToolbar {
-                            print("Add tapped")
-                            let newThanks = Thanks(title: "", body: "", date: Date.now, isFavorite: false, icon: IconImages.star.rawValue, color: "#007AFF")
-                            modelContext.insert(newThanks)
-                            path.append(newThanks)
-                        }
                 }
+            }
+            .navigationDestination(for: Thanks.self, destination: { thanks in
+                EditThanksView(navigationPath: $path, thanks: thanks)
+            })
+            .ThanksToolbar {
+                print("Add tapped")
+                let newThanks = Thanks(title: "", body: "", date: Date.now, isFavorite: false, icon: IconImages.star.rawValue, color: "#007AFF")
+                modelContext.insert(newThanks)
+                path.append(newThanks)
             }
         }
     }

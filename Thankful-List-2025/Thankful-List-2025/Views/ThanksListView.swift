@@ -18,7 +18,7 @@ struct ThanksListView: View {
         NavigationStack(path: $path) {
             List {
                 ForEach(thanks) { thank in
-                    Text(thank.title)
+                    ThanksRowView(thanks: thank)
                 }
             }
             .navigationDestination(for: Thanks.self, destination: { thanks in

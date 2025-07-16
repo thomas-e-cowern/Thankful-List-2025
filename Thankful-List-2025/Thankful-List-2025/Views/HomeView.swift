@@ -7,8 +7,12 @@
 import SwiftUI
 
 struct HomeView: View {
+    
+    @Environment(\.modelContext) private var modelContext
+    @State private var path = NavigationPath()
+    
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             ZStack {
                 VStack(spacing: 30) {
                     
@@ -25,6 +29,9 @@ struct HomeView: View {
                         .padding()
                         .ThanksToolbar {
                             print("Add tapped")
+                            let newThanks = Thanks(title: "", body: "", date: Date.now, isFavorite: false, icon: IconImages.star.rawValue, color: "#007AFF")
+                            modelContext.insert(newThanks)
+                            path.append(newThanks)
                         }
                 }
             }

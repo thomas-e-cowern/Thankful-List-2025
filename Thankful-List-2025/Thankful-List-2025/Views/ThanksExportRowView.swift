@@ -8,11 +8,25 @@
 import SwiftUI
 
 struct ThanksExportRowView: View {
+    
+    var thanks: Thanks
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(alignment: .leading, spacing: 8) {
+            Text("I'm thankful for...")
+            Text(thanks.title)
+                .font(.title)
+                .fontWeight(.bold)
+            Text("Because...")
+            Text(thanks.reason)
+                .font(.title)
+                .fontWeight(.bold)
+            
+        }
+        .frame(maxWidth: .infinity)
     }
 }
 
 #Preview {
-    ThanksExportRowView()
+    ThanksExportRowView(thanks: Thanks.sampleThanks[3])
 }

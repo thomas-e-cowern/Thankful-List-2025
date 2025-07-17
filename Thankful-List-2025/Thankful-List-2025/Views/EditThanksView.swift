@@ -40,6 +40,11 @@ struct EditThanksView: View {
                 
             }
         }
+        .onDisappear {
+            if thanks.title.isEmpty {
+                modelContext.delete(thanks)
+            }
+        }
     }
 }
 

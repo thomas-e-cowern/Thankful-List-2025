@@ -6,11 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct SettingsView: View {
     
     @Environment(\.modelContext) private var modelContext
+    @Query var thanks: [Thanks]
     @State private var showAlert: Bool = false
+    @State private var showingExporter = false
     
     var body: some View {
         NavigationStack {
@@ -42,15 +45,18 @@ struct SettingsView: View {
                     Divider()
                         .foregroundStyle(.red)
                     
-                    HStack(spacing: 30) {
-                        Text("Export all data?")
-                        Button() {
-                            // More to come...
-                        } label: {
-                            Text("Export data")
-                        }
-                        .buttonStyle(.borderedProminent)
-                    }
+//                    HStack(spacing: 30) {
+//                        Text("Export all data?")
+//                        Button() {
+//                            showingExporter.toggle()
+//                        } label: {
+//                            Text("Export data")
+//                        }
+//                        .buttonStyle(.borderedProminent)
+//                    }
+//                    .sheet(isPresented: $showingExporter) {
+//                        ThanksExportView(thanks: thanks)
+//                    }
                 }
             }
             .padding()

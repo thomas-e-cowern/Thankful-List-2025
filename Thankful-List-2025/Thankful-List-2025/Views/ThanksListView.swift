@@ -16,6 +16,10 @@ struct ThanksListView: View {
     @State private var searchText = ""
     @State private var sortOrder = [SortDescriptor(\Thanks.title)]
     
+    init(sort: SortDescriptor<Thanks>) {
+        _thanks = Query(sort: [sort])
+    }
+    
     
     var body: some View {
         NavigationStack(path: $path) {
@@ -40,5 +44,5 @@ struct ThanksListView: View {
 }
 
 #Preview {
-    ThanksListView()
+    ThanksListView(sort: SortDescriptor(\Thanks.title))
 }

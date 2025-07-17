@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var sortOrder = SortDescriptor(\Thanks.title)
+    
     var body: some View {
         VStack {
             TabView {
@@ -15,7 +18,7 @@ struct ContentView: View {
                     HomeView()
                 }
                 Tab("Thanks List", systemImage: "list.bullet") {
-                    ThanksListView()
+                    ThanksListView(sort: sortOrder)
                 }
                 Tab("Favorites", systemImage: "heart") {
                     FavoritesView()
@@ -28,6 +31,8 @@ struct ContentView: View {
     }
 }
 
+
 #Preview {
     ContentView()
 }
+

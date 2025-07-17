@@ -6,14 +6,28 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ThanksToolbar: ToolbarContent {
     let onAddTapped: () -> Void
+    @State private var sortOrder = SortDescriptor(\Thanks.title)
 
     var body: some ToolbarContent {
         ToolbarItem(placement: .navigationBarTrailing) {
             Button(action: onAddTapped) {
                 Image(systemName: "plus.circle.fill")
+            }
+        }
+        ToolbarItem(placement: .navigationBarLeading) {
+            Menu("Sort", systemImage: "arrow.up.arrow.down") {
+                Picker("Sort", selection: $sortOrder) {
+                    Text("Name")
+                        .tag(SortDescriptor(\Thanks.title))
+
+                    Text("Date")
+                        .tag(SortDescriptor(\Thanks.date, order: .reverse))
+                }
+                .pickerStyle(.inline)
             }
         }
     }

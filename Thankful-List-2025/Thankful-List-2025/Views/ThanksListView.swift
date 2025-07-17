@@ -20,6 +20,7 @@ struct ThanksListView: View {
                 ForEach(thanks) { thank in
                     ThanksRowView(thanks: thank)
                 }
+                .onDelete(perform: deleteThanks)
             }
             .navigationDestination(for: Thanks.self, destination: { thanks in
                 EditThanksView(navigationPath: $path, thanks: thanks)
@@ -32,6 +33,18 @@ struct ThanksListView: View {
             }
         }
     }
+    
+    func deleteThanks(at offsets: IndexSet) {
+            for offset in offsets {
+                let thanks = thanks[offset]
+                modelContext.delete(thanks)
+                do {
+                    try modelContext.save()
+                } catch {
+                    print("Unable to delete thanks: \(error.localizedDescription)")
+                }
+            }
+        }
 }
 
 #Preview {

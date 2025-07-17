@@ -24,7 +24,6 @@ struct ThanksRowView: View {
                     Text("\(thanks.date, style: .date)")
                         .font(.caption)
                 }
-//                .foregroundStyle(TLCustomColors.textColors)
                 
                 Spacer()
                 Image(systemName: thanks.isFavorite ? "heart.fill" : "heart")

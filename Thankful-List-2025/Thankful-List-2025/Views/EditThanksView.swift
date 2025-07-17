@@ -43,7 +43,15 @@ struct EditThanksView: View {
         .onDisappear {
             if thanks.title.isEmpty {
                 modelContext.delete(thanks)
+            } else {
+                do {
+                    try modelContext.save()
+                } catch {
+                    print("Unable to save context: \(error)")
+                }
+                
             }
+            
         }
     }
 }

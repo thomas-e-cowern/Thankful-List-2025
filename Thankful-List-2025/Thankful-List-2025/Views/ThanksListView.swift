@@ -13,38 +13,30 @@ struct ThanksListView: View {
     @Environment(\.modelContext) private var modelContext
     @State private var path = NavigationPath()
     @Query var thanks: [Thanks]
+    @State private var searchText = ""
+    @State private var sortOrder = [SortDescriptor(\Thanks.title)]
+    
     
     var body: some View {
         NavigationStack(path: $path) {
-            List {
-                ForEach(thanks) { thank in
-                    ThanksRowView(thanks: thank)
+            ThanksView(searchString: searchText, sortOrder: sortOrder)
+                .navigationTitle("Thanks List")
+                .navigationDestination(for: Thanks.self, destination: { thanks in
+                    EditThanksView(navigationPath: $path, thanks: thanks)
+                })
+                .searchable(text: $searchText)
+                .ThanksToolbar {
+                    let newThanks = Thanks(title: "", body: "", date: Date.now, isFavorite: false, icon: IconImages.star.rawValue, color: "#007AFF")
+                    modelContext.insert(newThanks)
+                    path.append(newThanks)
                 }
-                .onDelete(perform: deleteThanks)
-            }
-            .navigationDestination(for: Thanks.self, destination: { thanks in
-                EditThanksView(navigationPath: $path, thanks: thanks)
-            })
-            .ThanksToolbar {
-                print("Add tapped")
-                let newThanks = Thanks(title: "", body: "", date: Date.now, isFavorite: false, icon: IconImages.star.rawValue, color: "#007AFF")
-                modelContext.insert(newThanks)
-                path.append(newThanks)
-            }
+                .overlay {
+                    if thanks.isEmpty {
+                        ContentUnavailableView("You don't have any thanks yet!", systemImage: "heart", description: Text("Add a thanks to begin the list!"))
+                    }
+                }
         }
     }
-    
-    func deleteThanks(at offsets: IndexSet) {
-            for offset in offsets {
-                let thanks = thanks[offset]
-                modelContext.delete(thanks)
-                do {
-                    try modelContext.save()
-                } catch {
-                    print("Unable to delete thanks: \(error.localizedDescription)")
-                }
-            }
-        }
 }
 
 #Preview {

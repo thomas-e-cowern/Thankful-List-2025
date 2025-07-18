@@ -21,7 +21,7 @@ struct ContentView: View {
                     ThanksListView(sort: sortOrder)
                 }
                 Tab("Favorites", systemImage: "heart") {
-                    FavoritesView()
+                    FavoritesView(sort: sortOrder)
                 }
                 Tab("Settings", systemImage: "gear") {
                     SettingsView()

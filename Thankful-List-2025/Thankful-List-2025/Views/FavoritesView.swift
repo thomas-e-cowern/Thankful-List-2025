@@ -12,7 +12,12 @@ struct FavoritesView: View {
     
     @Environment(\.modelContext) private var modelContext
     @State private var path = NavigationPath()
-    @Query var thanks: [Thanks]
+    
+    @Query(filter: #Predicate<Thanks> { thanks in
+        thanks.isFavorite == true
+    }) var thanks: [Thanks]
+    
+    
     @State private var searchText = ""
     @State private var sortOrder = [SortDescriptor(\Thanks.title)]
     
@@ -21,9 +26,13 @@ struct FavoritesView: View {
     }
     
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             VStack {
-                Text("Favorites View")
+                ThanksView(searchString: searchText, sortOrder: sortOrder, isFavorite: true)
+                    .navigationDestination(for: Thanks.self, destination: { thanks in
+                        EditThanksView(navigationPath: $path, thanks: thanks)
+                    })
+                    .searchable(text: $searchText)
             }
             .navigationTitle("Favorites")
             .toolbar {

@@ -11,14 +11,14 @@ import SwiftData
 struct SettingsView: View {
     
     @Environment(\.modelContext) private var modelContext
+    @State private var path = NavigationPath()
     @Query var thanks: [Thanks]
     @State private var showAlert: Bool = false
     @State private var showingExporter = false
     
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             VStack(spacing: 30) {
-                
                 Section("Data") {
                     VStack(spacing: 20) {
                         Text("The button below will erase all your data and start fresh.")
@@ -44,23 +44,14 @@ struct SettingsView: View {
                     
                     Divider()
                         .foregroundStyle(.red)
-                    
-//                    HStack(spacing: 30) {
-//                        Text("Export all data?")
-//                        Button() {
-//                            showingExporter.toggle()
-//                        } label: {
-//                            Text("Export data")
-//                        }
-//                        .buttonStyle(.borderedProminent)
-//                    }
-//                    .sheet(isPresented: $showingExporter) {
-//                        ThanksExportView(thanks: thanks)
-//                    }
                 }
             }
             .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .navigationTitle("Settings")
+            .navigationDestination(for: Thanks.self, destination: { thanks in
+                EditThanksView(navigationPath: $path, thanks: thanks)
+            })
             .alert("Delete all data?  This is irreversible.", isPresented: $showAlert) {
                 Button {
                     deleteAllData()
@@ -68,6 +59,16 @@ struct SettingsView: View {
                     Text("Delete all data!")
                 }
                 
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Image(systemName: "plus")
+                        .onTapGesture {
+                            let newThanks = Thanks(title: "", body: "", date: Date.now, isFavorite: false, icon: IconImages.star.rawValue, color: "#007AFF")
+                            modelContext.insert(newThanks)
+                            path.append(newThanks)
+                        }
+                }
             }
         }
     }

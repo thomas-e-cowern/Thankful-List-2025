@@ -12,8 +12,9 @@ struct ThanksView: View {
     
     @Environment(\.modelContext) var modelContext
     @Query var thanks: [Thanks]
+    @State var isFavorite: Bool
     
-    init(searchString: String = "", sortOrder: [SortDescriptor<Thanks>] = []) {
+    init(searchString: String = "", sortOrder: [SortDescriptor<Thanks>] = [], isFavorite: Bool) {
         _thanks = Query(filter: #Predicate { thanks in
             if searchString.isEmpty {
                 true
@@ -22,16 +23,28 @@ struct ThanksView: View {
                 || thanks.reason.localizedStandardContains(searchString)
             }
         }, sort: sortOrder)
+        self.isFavorite = isFavorite
     }
     
     var body: some View {
         List {
-            ForEach(thanks) { thank in
-                NavigationLink(value: thank) {
-                    ThanksRowView(thanks: thank)
+            if isFavorite {
+                ForEach(thanks) { thank in
+                    if thank.isFavorite {
+                        NavigationLink(value: thank) {
+                            ThanksRowView(thanks: thank)
+                        }
+                    }
                 }
+                .onDelete(perform: deleteThanks)
+            } else {
+                ForEach(thanks) { thank in
+                    NavigationLink(value: thank) {
+                        ThanksRowView(thanks: thank)
+                    }
+                }
+                .onDelete(perform: deleteThanks)
             }
-            .onDelete(perform: deleteThanks)
         }
     }
     
@@ -49,5 +62,5 @@ struct ThanksView: View {
 }
 
 #Preview {
-    ThanksView()
+    ThanksView(isFavorite: false)
 }

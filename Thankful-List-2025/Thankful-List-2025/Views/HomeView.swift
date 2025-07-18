@@ -32,11 +32,15 @@ struct HomeView: View {
             .navigationDestination(for: Thanks.self, destination: { thanks in
                 EditThanksView(navigationPath: $path, thanks: thanks)
             })
-            .ThanksToolbar {
-                print("Add tapped")
-                let newThanks = Thanks(title: "", body: "", date: Date.now, isFavorite: false, icon: IconImages.star.rawValue, color: "#007AFF")
-                modelContext.insert(newThanks)
-                path.append(newThanks)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Image(systemName: "plus")
+                        .onTapGesture {
+                            let newThanks = Thanks(title: "", body: "", date: Date.now, isFavorite: false, icon: IconImages.star.rawValue, color: "#007AFF")
+                            modelContext.insert(newThanks)
+                            path.append(newThanks)
+                        }
+                }
             }
         }
     }

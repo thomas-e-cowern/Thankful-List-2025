@@ -23,7 +23,7 @@ struct ThanksListView: View {
     
     var body: some View {
         NavigationStack(path: $path) {
-            ThanksView(searchString: searchText, sortOrder: sortOrder)
+            ThanksView(searchString: searchText, sortOrder: sortOrder, isFavorite: false)
                 .navigationTitle("Thanks List")
                 .navigationDestination(for: Thanks.self, destination: { thanks in
                     EditThanksView(navigationPath: $path, thanks: thanks)

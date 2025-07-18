@@ -29,10 +29,32 @@ struct ThanksListView: View {
                     EditThanksView(navigationPath: $path, thanks: thanks)
                 })
                 .searchable(text: $searchText)
-                .ThanksToolbar {
-                    let newThanks = Thanks(title: "", body: "", date: Date.now, isFavorite: false, icon: IconImages.star.rawValue, color: "#007AFF")
-                    modelContext.insert(newThanks)
-                    path.append(newThanks)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Menu("Sort", systemImage: "arrow.up.arrow.down") {
+                            Picker("Sort", selection: $sortOrder) {
+                                Text("Name A->Z")
+                                    .tag([SortDescriptor(\Thanks.title)])
+                                
+                                Text("Name Z->A")
+                                    .tag([SortDescriptor(\Thanks.title, order: .reverse)])
+                                
+                                Text("Date 1->30")
+                                    .tag([SortDescriptor(\Thanks.date)])
+                                
+                                Text("Date 30->1")
+                                    .tag([SortDescriptor(\Thanks.date, order: .reverse)])
+                            }
+                        }
+                    }
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Image(systemName: "plus")
+                            .onTapGesture {
+                                let newThanks = Thanks(title: "", body: "", date: Date.now, isFavorite: false, icon: IconImages.star.rawValue, color: "#007AFF")
+                                modelContext.insert(newThanks)
+                                path.append(newThanks)
+                            }
+                    }
                 }
                 .overlay {
                     if thanks.isEmpty {

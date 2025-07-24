@@ -15,6 +15,7 @@ struct ThanksRowView: View {
         VStack {
             HStack {
                 Image(systemName: thanks.icon)
+                    .font(.title)
                     .foregroundStyle(thanks.hexColor.opacity(0.8))
                     .padding(.trailing, 5)
                 

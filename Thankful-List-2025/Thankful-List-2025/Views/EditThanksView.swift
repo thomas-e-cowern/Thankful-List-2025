@@ -13,6 +13,16 @@ struct EditThanksView: View {
     @Binding var navigationPath: NavigationPath
     
     var thanks: Thanks
+    var selectedColor: Color = .blue
+    
+    private var colorBinding: Binding<Color> {
+            Binding<Color>(
+                get: { Color(hex: self.thanks.color) ?? .white }, // Fallback to white if conversion fails
+                set: { newValue in
+                    self.self.thanks.color = newValue.toHexString() ?? "#FFFFFF" // Fallback to white hex string
+                }
+            )
+        }
     
     var body: some View {
         
@@ -39,14 +49,28 @@ struct EditThanksView: View {
                 }
             }
             
+            Section("How your Icon will look based on selections below") {
+                HStack(alignment: .center) {
+                    Spacer()
+                    Image(systemName: thanks.icon)
+                        .foregroundStyle(thanks.hexColor)
+                        .font(.title)
+                    Spacer()
+                }
+            }
+            
             Section("Icon and Colors") {
                 Picker("Choose an Icon", selection: $thanks.icon) {
                     ForEach(IconImages.allCases, id: \.self) { icon in
                         Image(systemName: icon.rawValue)
+                            
                             .tag(icon.rawValue)
                     }
-                    
-                }.pickerStyle(.menu)
+                    .foregroundStyle(thanks.hexColor)
+                }
+                .pickerStyle(.palette)
+                
+                ColorPicker("Choose a color", selection: colorBinding)
             }
         }
         .onDisappear {

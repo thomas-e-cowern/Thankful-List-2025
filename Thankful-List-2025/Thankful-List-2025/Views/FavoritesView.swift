@@ -62,6 +62,11 @@ struct FavoritesView: View {
                         }
                 }
             }
+            .overlay {
+                if thanks.isEmpty {
+                    ContentUnavailableView("You don't have any thanks yet!", systemImage: "heart", description: Text("Add a thanks to begin the list!"))
+                }
+            }
         }
     }
 }

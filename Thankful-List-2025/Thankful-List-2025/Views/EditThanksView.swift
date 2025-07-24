@@ -19,7 +19,7 @@ struct EditThanksView: View {
         @Bindable var thanks = thanks
         
         Form {
-            Section {
+            Section("Basic Information") {
                 TextField("What are you thankful for?", text: $thanks.title)
                 
                 TextField("Why are you thankful for this?", text: $thanks.reason)
@@ -37,7 +37,16 @@ struct EditThanksView: View {
                     }
                     .foregroundStyle(.red)
                 }
-                
+            }
+            
+            Section("Icon and Colors") {
+                Picker("Choose an Icon", selection: $thanks.icon) {
+                    ForEach(IconImages.allCases, id: \.self) { icon in
+                        Image(systemName: icon.rawValue)
+                            .tag(icon.rawValue)
+                    }
+                    
+                }.pickerStyle(.menu)
             }
         }
         .onDisappear {

@@ -65,6 +65,18 @@ struct ThanksListView: View {
     }
 }
 
-#Preview {
+#Preview("No data") {
     ThanksListView(sort: SortDescriptor(\Thanks.title))
+}
+
+#Preview("Data") {
+    do {
+        let previewer = try Previewer()
+        
+        return ContentView()
+            .modelContainer(previewer.container)
+        
+    } catch {
+        return Text("Failed to create preview: \(error.localizedDescription)")
+    }
 }

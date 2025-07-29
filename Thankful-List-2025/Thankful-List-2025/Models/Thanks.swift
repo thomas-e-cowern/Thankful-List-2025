@@ -18,6 +18,8 @@ class Thanks: Identifiable {
     var icon: String
     var color: String
     
+    @Attribute(.externalStorage) var photo: Data?
+    
     init(title: String, body: String, date: Date, isFavorite: Bool, icon: String, color: String) {
         self.title = title
         self.reason = body

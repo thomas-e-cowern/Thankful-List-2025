@@ -65,8 +65,8 @@ struct EditThanksView: View {
                 Picker("Choose an Icon", selection: $thanks.icon) {
                     ForEach(IconImages.allCases, id: \.self) { icon in
                         Image(systemName: icon.rawValue)
-                            
                             .tag(icon.rawValue)
+                            .font(.largeTitle)
                     }
                     .foregroundStyle(thanks.hexColor)
                 }

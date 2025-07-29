@@ -18,5 +18,7 @@ struct Previewer {
         container = try ModelContainer(for: Thanks.self, configurations: config)
         
         thanks = Thanks(title: "My friends and family", body: "They are the ones who make life worth living", date: Date.now, isFavorite: true, icon: "star", color: "#007AFF")
+        
+        container.mainContext.insert(thanks)
     }
 }

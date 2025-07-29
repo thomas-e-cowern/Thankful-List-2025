@@ -14,17 +14,19 @@ struct EditThanksView: View {
     @Binding var navigationPath: NavigationPath
     @State private var selectedItem: PhotosPickerItem?
     
+    
+    
     var thanks: Thanks
     var selectedColor: Color = .blue
     
     private var colorBinding: Binding<Color> {
-            Binding<Color>(
-                get: { Color(hex: self.thanks.color) ?? .white }, // Fallback to white if conversion fails
-                set: { newValue in
-                    self.self.thanks.color = newValue.toHexString() ?? "#FFFFFF" // Fallback to white hex string
-                }
-            )
-        }
+        Binding<Color>(
+            get: { Color(hex: self.thanks.color) ?? .white }, // Fallback to white if conversion fails
+            set: { newValue in
+                self.self.thanks.color = newValue.toHexString() ?? "#FFFFFF" // Fallback to white hex string
+            }
+        )
+    }
     
     var body: some View {
         
@@ -64,13 +66,14 @@ struct EditThanksView: View {
             Section("Icon and Colors") {
                 Picker("Choose an Icon", selection: $thanks.icon) {
                     ForEach(IconImages.allCases, id: \.self) { icon in
+                        
                         IconPickerItem(icon: icon.rawValue)
                             .tag(icon.rawValue)
+                        
                     }
                     .foregroundStyle(thanks.hexColor)
                 }
-                .pickerStyle(.palette)
-                .scaleEffect(1.5)
+                .pickerStyle(WheelPickerStyle())
                 
                 ColorPicker("Choose a color", selection: colorBinding)
             }

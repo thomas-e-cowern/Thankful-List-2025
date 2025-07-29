@@ -6,11 +6,13 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct EditThanksView: View {
     
     @Environment(\.modelContext) var modelContext
     @Binding var navigationPath: NavigationPath
+    @State private var selectedItem: PhotosPickerItem?
     
     var thanks: Thanks
     var selectedColor: Color = .blue
@@ -72,6 +74,18 @@ struct EditThanksView: View {
                 
                 ColorPicker("Choose a color", selection: colorBinding)
             }
+            
+            Section {
+                PhotosPicker(selection: $selectedItem, matching: .images) {
+                    Label("Select a photo", systemImage: "person")
+                }
+                
+                if let imageData = thanks.photo, let uiImage = UIImage(data: imageData) {
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .scaledToFit()
+                }
+            }
         }
         .onDisappear {
             if thanks.title.isEmpty {
@@ -85,6 +99,13 @@ struct EditThanksView: View {
                 
             }
             
+        }
+        .onChange(of: selectedItem, loadPhoto)
+    }
+    
+    func loadPhoto() {
+        Task { @MainActor in
+            thanks.photo = try await selectedItem?.loadTransferable(type: Data.self)
         }
     }
 }

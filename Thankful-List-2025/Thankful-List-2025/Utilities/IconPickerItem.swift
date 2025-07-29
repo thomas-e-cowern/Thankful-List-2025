@@ -14,7 +14,7 @@ struct IconPickerItem: View {
     var body: some View {
         HStack {
             Image(systemName: icon)
-                .font(.largeTitle) // Example of larger font
+                .font(.title) // Example of larger font
         }
     }
 }

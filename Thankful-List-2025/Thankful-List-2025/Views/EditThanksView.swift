@@ -64,13 +64,13 @@ struct EditThanksView: View {
             Section("Icon and Colors") {
                 Picker("Choose an Icon", selection: $thanks.icon) {
                     ForEach(IconImages.allCases, id: \.self) { icon in
-                        Image(systemName: icon.rawValue)
+                        IconPickerItem(icon: icon.rawValue)
                             .tag(icon.rawValue)
-                            .font(.largeTitle)
                     }
                     .foregroundStyle(thanks.hexColor)
                 }
                 .pickerStyle(.palette)
+                .scaleEffect(1.5)
                 
                 ColorPicker("Choose a color", selection: colorBinding)
             }

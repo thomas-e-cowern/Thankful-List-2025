@@ -90,5 +90,13 @@ struct EditThanksView: View {
 }
 
 #Preview {
-    EditThanksView( navigationPath: .constant(NavigationPath()), thanks: Thanks.sampleThanks[0])
+    do {
+        let previewer = try Previewer()
+        
+        return EditThanksView(navigationPath: .constant(NavigationPath()), thanks: previewer.thanks)
+            .modelContainer(previewer.container)
+        
+    } catch {
+        return Text("Failed to create preview: \(error.localizedDescription)")
+    }
 }

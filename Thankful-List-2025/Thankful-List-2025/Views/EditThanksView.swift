@@ -78,7 +78,7 @@ struct EditThanksView: View {
                 ColorPicker("Choose a color", selection: colorBinding)
             }
             
-            Section {
+            Section("Add a photo") {
                 PhotosPicker(selection: $selectedItem, matching: .images) {
                     Label("Select a photo", systemImage: "person")
                 }

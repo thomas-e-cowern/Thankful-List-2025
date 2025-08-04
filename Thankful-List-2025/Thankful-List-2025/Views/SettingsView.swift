@@ -58,7 +58,6 @@ struct SettingsView: View {
                 } label: {
                     Text("Delete all data!")
                 }
-                
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {

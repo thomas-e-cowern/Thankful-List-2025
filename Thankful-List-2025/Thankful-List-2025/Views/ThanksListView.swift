@@ -18,6 +18,7 @@ struct ThanksListView: View {
     @State private var sortOrder = [SortDescriptor(\Thanks.title)]
     
     let addThanksTip = AddThanksTip()
+    let addSortTip = AddSortTip()
     
     init(sort: SortDescriptor<Thanks>) {
         _thanks = Query(sort: [sort])
@@ -49,6 +50,7 @@ struct ThanksListView: View {
                                     .tag([SortDescriptor(\Thanks.date, order: .reverse)])
                             }
                         }
+                        .popoverTip(addSortTip)
                     }
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Image(systemName: "plus")
@@ -57,7 +59,6 @@ struct ThanksListView: View {
                                 modelContext.insert(newThanks)
                                 path.append(newThanks)
                             }
-                            .popoverTip(addThanksTip)
                     }
                 }
                 .overlay {

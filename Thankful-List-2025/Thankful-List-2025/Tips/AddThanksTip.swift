@@ -13,3 +13,4 @@ struct AddThanksTip: Tip {
     var message: Text? { Text("You can click here to add a Thanks from any view") }
     var image: Image? { Image(systemName: "pencil.circle") }
 }
+

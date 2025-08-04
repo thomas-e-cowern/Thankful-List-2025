@@ -14,7 +14,7 @@ struct FavoritesView: View {
     @Environment(\.modelContext) private var modelContext
     @State private var path = NavigationPath()
     
-    let addThanksTip = AddThanksTip()
+    let addFavoritesTip = AddFavoritesTip()
     
     @Query(filter: #Predicate<Thanks> { thanks in
         thanks.isFavorite == true
@@ -34,7 +34,9 @@ struct FavoritesView: View {
                 ThanksView(searchString: searchText, sortOrder: sortOrder, isFavorite: true)
                     .navigationDestination(for: Thanks.self, destination: { thanks in
                         EditThanksView(navigationPath: $path, thanks: thanks)
+                            
                     })
+                    .popoverTip(addFavoritesTip)
                     .searchable(text: $searchText)
             }
             .navigationTitle("Favorites")
@@ -63,7 +65,6 @@ struct FavoritesView: View {
                             modelContext.insert(newThanks)
                             path.append(newThanks)
                         }
-                        .popoverTip(addThanksTip)
                 }
             }
             .overlay {

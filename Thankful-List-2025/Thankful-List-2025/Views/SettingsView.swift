@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import TipKit
 
 struct SettingsView: View {
     
@@ -15,6 +16,8 @@ struct SettingsView: View {
     @Query var thanks: [Thanks]
     @State private var showAlert: Bool = false
     @State private var showingExporter = false
+    
+    let addThanksTip = AddThanksTip()
     
     var body: some View {
         NavigationStack(path: $path) {
@@ -67,6 +70,7 @@ struct SettingsView: View {
                             modelContext.insert(newThanks)
                             path.append(newThanks)
                         }
+                        .popoverTip(addThanksTip)
                 }
             }
         }

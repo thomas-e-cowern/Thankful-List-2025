@@ -16,6 +16,7 @@ struct Thankful_List_2025App: App {
             ContentView()
                 .modelContainer(for: Thanks.self)
                 .task {
+                    try? Tips.resetDatastore()
                     try? Tips.configure(
                         [
                             .displayFrequency(.immediate),

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import TipKit
 
 struct ThanksListView: View {
     
@@ -15,6 +16,8 @@ struct ThanksListView: View {
     @Query var thanks: [Thanks]
     @State private var searchText = ""
     @State private var sortOrder = [SortDescriptor(\Thanks.title)]
+    
+    let addThanksTip = AddThanksTip()
     
     init(sort: SortDescriptor<Thanks>) {
         _thanks = Query(sort: [sort])
@@ -54,6 +57,7 @@ struct ThanksListView: View {
                                 modelContext.insert(newThanks)
                                 path.append(newThanks)
                             }
+                            .popoverTip(addThanksTip)
                     }
                 }
                 .overlay {

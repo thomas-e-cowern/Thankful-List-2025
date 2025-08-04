@@ -5,11 +5,14 @@
 //  Created by Thomas Cowern on 7/16/25.
 //
 import SwiftUI
+import TipKit
 
 struct HomeView: View {
     
     @Environment(\.modelContext) private var modelContext
     @State private var path = NavigationPath()
+    
+    let addThanksTip = AddThanksTip()
     
     var body: some View {
         NavigationStack(path: $path) {
@@ -40,6 +43,7 @@ struct HomeView: View {
                             modelContext.insert(newThanks)
                             path.append(newThanks)
                         }
+                        .popoverTip(addThanksTip)
                 }
             }
         }

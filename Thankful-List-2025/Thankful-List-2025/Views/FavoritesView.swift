@@ -7,11 +7,14 @@
 
 import SwiftUI
 import SwiftData
+import TipKit
 
 struct FavoritesView: View {
     
     @Environment(\.modelContext) private var modelContext
     @State private var path = NavigationPath()
+    
+    let addThanksTip = AddThanksTip()
     
     @Query(filter: #Predicate<Thanks> { thanks in
         thanks.isFavorite == true
@@ -60,6 +63,7 @@ struct FavoritesView: View {
                             modelContext.insert(newThanks)
                             path.append(newThanks)
                         }
+                        .popoverTip(addThanksTip)
                 }
             }
             .overlay {

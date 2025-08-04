@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import TipKit
 
 @main
 struct Thankful_List_2025App: App {
@@ -14,6 +15,14 @@ struct Thankful_List_2025App: App {
         WindowGroup {
             ContentView()
                 .modelContainer(for: Thanks.self)
+                .task {
+                    try? Tips.configure(
+                        [
+                            .displayFrequency(.immediate),
+                            .datastoreLocation(.applicationDefault),
+                        ]
+                    )
+                }
         }
     }
 }

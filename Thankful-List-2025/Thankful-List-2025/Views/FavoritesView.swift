@@ -63,7 +63,7 @@ struct FavoritesView: View {
                 }
             }
             .overlay {
-                if thanks.isEmpty {
+                if thanks.filter({ $0.isFavorite == false }).isEmpty {
                     ContentUnavailableView("You don't have any thanks yet!", systemImage: "heart", description: Text("Add a thanks to begin the list!"))
                 }
             }

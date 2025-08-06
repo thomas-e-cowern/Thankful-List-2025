@@ -83,8 +83,8 @@ struct NotificationSchedulerView: View {
             dateComponents.minute = minute
 
             let content = UNMutableNotificationContent()
-            content.title = "Reminder"
-            content.body = "It's time!"
+            content.title = "from your Thankful list"
+            content.body = "Isn't there something your thankful for?"
             content.sound = .default
 
             let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)

@@ -7,6 +7,8 @@
 import SwiftUI
 import UserNotifications
 
+
+
 struct NotificationListView: View {
     @State private var pendingNotifications: [UNNotificationRequest] = []
 
@@ -19,10 +21,13 @@ struct NotificationListView: View {
                             .font(.headline)
                         Text(request.content.body)
                             .font(.subheadline)
-//                        if let trigger = request.trigger as? UNCalendarNotificationTrigger, let dateComponents = trigger.dateComponents {
-//                            Text("Scheduled: \(dateComponents.description)")
-//                                .font(.caption)
-//                        }
+                        if let trigger = request.trigger as? UNCalendarNotificationTrigger {
+                            let weekdaySymbols = DateFormatter().weekdaySymbols
+                            let day = trigger.dateComponents.weekday ?? 0
+                            let hour = trigger.dateComponents.hour ?? 0
+                            let minute = trigger.dateComponents.minute ?? 0
+                            Text("Scheduled for \(weekdaySymbols?[day - 1] ?? "Unknown") at \(hour):\(minute)")
+                        }
                     }
                 }
             }

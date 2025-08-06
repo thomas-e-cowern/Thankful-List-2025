@@ -14,8 +14,9 @@ struct SettingsView: View {
     @Environment(\.modelContext) private var modelContext
     @State private var path = NavigationPath()
     @Query var thanks: [Thanks]
-    @State private var showAlert: Bool = false
-    @State private var showingExporter = false
+    @State private var showNotificationSchedular: Bool = false
+    @State private var showAlert = false
+    
     
     let settingsTip = SettingsTip()
     
@@ -26,6 +27,15 @@ struct SettingsView: View {
                 TipView(settingsTip)
                 
                 Spacer()
+                
+                Section("Notifications") {
+                    Button {
+                        showNotificationSchedular.toggle()
+                    } label: {
+                        Text("Schedule or Edit Notifications")
+                    }
+
+                }
                 
                 Section("Data") {
                     VStack(spacing: 20) {

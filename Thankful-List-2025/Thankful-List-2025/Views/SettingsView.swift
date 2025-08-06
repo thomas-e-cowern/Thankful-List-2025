@@ -17,11 +17,16 @@ struct SettingsView: View {
     @State private var showAlert: Bool = false
     @State private var showingExporter = false
     
-    let addThanksTip = AddThanksTip()
+    let settingsTip = SettingsTip()
     
     var body: some View {
         NavigationStack(path: $path) {
             VStack(spacing: 30) {
+                
+                TipView(settingsTip)
+                
+                Spacer()
+                
                 Section("Data") {
                     VStack(spacing: 20) {
                         Text("The button below will erase all your data and start fresh.")
@@ -47,6 +52,8 @@ struct SettingsView: View {
                     
                     Divider()
                         .foregroundStyle(.red)
+                    
+                    Spacer()
                 }
             }
             .padding()
@@ -70,7 +77,6 @@ struct SettingsView: View {
                             modelContext.insert(newThanks)
                             path.append(newThanks)
                         }
-                        .popoverTip(addThanksTip)
                 }
             }
         }
@@ -87,4 +93,13 @@ struct SettingsView: View {
 
 #Preview {
     SettingsView()
+        .task {
+            try? Tips.resetDatastore()
+            try? Tips.configure(
+                [
+                    .displayFrequency(.immediate),
+                    .datastoreLocation(.applicationDefault)
+                ]
+            )
+        }
 }

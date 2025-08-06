@@ -16,6 +16,8 @@ struct Thankful_List_2025App: App {
             ContentView()
                 .modelContainer(for: Thanks.self)
                 .task {
+                    // TODO: Remove try? Tips.resetDatastore() before shipping
+                    // Below resets Tips when simulator is restarted
                     try? Tips.resetDatastore()
                     try? Tips.configure(
                         [

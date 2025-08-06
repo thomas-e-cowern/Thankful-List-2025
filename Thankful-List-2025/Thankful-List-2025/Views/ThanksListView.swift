@@ -72,7 +72,17 @@ struct ThanksListView: View {
 
 #Preview("No data") {
     ThanksListView(sort: SortDescriptor(\Thanks.title))
+        .task {
+            try? Tips.resetDatastore()
+            try? Tips.configure(
+                [
+                    .displayFrequency(.immediate),
+                    .datastoreLocation(.applicationDefault)
+                ]
+            )
+        }
 }
+
 
 #Preview("Data") {
     do {

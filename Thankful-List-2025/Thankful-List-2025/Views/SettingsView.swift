@@ -12,6 +12,7 @@ import TipKit
 struct SettingsView: View {
     
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.dismiss) private var dismiss
     @State private var path = NavigationPath()
     @Query var thanks: [Thanks]
     @State private var showNotificationSchedular: Bool = false
@@ -73,10 +74,18 @@ struct SettingsView: View {
                 EditThanksView(navigationPath: $path, thanks: thanks)
             })
             .alert("Delete all data?  This is irreversible.", isPresented: $showAlert) {
-                Button {
-                    deleteAllData()
-                } label: {
-                    Text("Delete all data!")
+                HStack {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Cancel")
+                    }
+
+                    Button {
+                        deleteAllData()
+                    } label: {
+                        Text("Delete all data!")
+                    }
                 }
             }
             .toolbar {

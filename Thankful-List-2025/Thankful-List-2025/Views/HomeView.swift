@@ -52,4 +52,13 @@ struct HomeView: View {
 
 #Preview {
     HomeView()
+        .task {
+            try? Tips.resetDatastore()
+            try? Tips.configure(
+                [
+                    .displayFrequency(.immediate),
+                    .datastoreLocation(.applicationDefault)
+                ]
+            )
+        }
 }

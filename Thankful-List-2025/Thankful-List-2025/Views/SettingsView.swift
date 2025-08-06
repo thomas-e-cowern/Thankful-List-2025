@@ -16,6 +16,7 @@ struct SettingsView: View {
     @State private var path = NavigationPath()
     @Query var thanks: [Thanks]
     @State private var showNotificationSchedular: Bool = false
+    @State private var showScheduledNotifications: Bool = false
     @State private var showAlert = false
     
     
@@ -34,6 +35,10 @@ struct SettingsView: View {
                         showNotificationSchedular.toggle()
                     } label: {
                         Text("Schedule or Edit Notifications")
+                    }
+                    
+                    Button("See Scheduled Notifications") {
+                        showScheduledNotifications.toggle()
                     }
 
                 }
@@ -90,6 +95,9 @@ struct SettingsView: View {
             }
             .sheet(isPresented: $showNotificationSchedular) {
                 NotificationSchedulerView()
+            }
+            .sheet(isPresented: $showScheduledNotifications) {
+                NotificationListView()
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {

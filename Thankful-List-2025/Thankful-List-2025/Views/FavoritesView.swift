@@ -78,4 +78,13 @@ struct FavoritesView: View {
 
 #Preview {
     FavoritesView(sort: SortDescriptor(\Thanks.title))
+        .task {
+            try? Tips.resetDatastore()
+            try? Tips.configure(
+                [
+                    .displayFrequency(.immediate),
+                    .datastoreLocation(.applicationDefault)
+                ]
+            )
+        }
 }

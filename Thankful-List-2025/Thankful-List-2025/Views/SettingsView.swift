@@ -88,6 +88,9 @@ struct SettingsView: View {
                     }
                 }
             }
+            .sheet(isPresented: $showNotificationSchedular) {
+                NotificationSchedulerView()
+            }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Image(systemName: "plus")

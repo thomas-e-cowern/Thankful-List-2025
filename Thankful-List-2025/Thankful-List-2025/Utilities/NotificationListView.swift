@@ -24,7 +24,7 @@ struct NotificationListView: View {
                             .font(.subheadline)
                         if let trigger = request.trigger as? UNCalendarNotificationTrigger {
                             let weekdaySymbols = DateFormatter().weekdaySymbols
-                            let day = trigger.dateComponents.weekday ?? 0
+                            let day = trigger.dateComponents.day ?? 0
                             let hour = trigger.dateComponents.hour ?? 0
                             let minute = trigger.dateComponents.minute ?? 0
                             Text("Scheduled for \(weekdaySymbols?[day - 1] ?? "Unknown") at \(hour):\(minute)")

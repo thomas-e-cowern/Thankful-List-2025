@@ -97,7 +97,7 @@ struct SettingsView: View {
                 NotificationSchedulerView()
             }
             .sheet(isPresented: $showScheduledNotifications) {
-                NotificationListView()
+                NotificationListViewNew()
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {

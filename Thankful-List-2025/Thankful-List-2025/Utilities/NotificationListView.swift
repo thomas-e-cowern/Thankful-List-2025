@@ -23,7 +23,6 @@ struct NotificationListView: View {
                         Text(request.content.body)
                             .font(.subheadline)
                         if let trigger = request.trigger as? UNCalendarNotificationTrigger {
-                            requestId = request.identifier
                             let weekdaySymbols = DateFormatter().weekdaySymbols
                             let day = trigger.dateComponents.weekday ?? 0
                             let hour = trigger.dateComponents.hour ?? 0

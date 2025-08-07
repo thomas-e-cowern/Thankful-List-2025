@@ -34,7 +34,7 @@ struct SettingsView: View {
                     Button {
                         showNotificationSchedular.toggle()
                     } label: {
-                        Text("Schedule or Edit Notifications")
+                        Text("Schedule Notifications")
                     }
                     
                     Button("See Scheduled Notifications") {
@@ -65,10 +65,6 @@ struct SettingsView: View {
                             .buttonStyle(.borderedProminent)
                         }
                     }
-                    
-                    Divider()
-                        .foregroundStyle(.red)
-                    
                     Spacer()
                 }
             }

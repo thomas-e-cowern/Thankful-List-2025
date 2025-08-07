@@ -9,6 +9,9 @@ import SwiftUI
 import UserNotifications
 
 struct NotificationSchedulerView: View {
+    
+    @Environment(\.dismiss) private var dismiss
+    
     @State private var selectedTime = Date()
     @State private var selectedDays: Set<String> = []
     
@@ -43,6 +46,7 @@ struct NotificationSchedulerView: View {
                     Button("Schedule Notifications") {
                         requestNotificationPermission()
                         scheduleNotifications()
+                        dismiss()
                     }
                 }
             }

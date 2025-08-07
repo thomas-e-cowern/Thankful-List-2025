@@ -44,6 +44,7 @@ struct HomeView: View {
                             path.append(newThanks)
                         }
                         .popoverTip(addThanksTip)
+                        .accessibilityHint("This will open up the form to add a new Thanks to your list.")
                 }
             }
         }

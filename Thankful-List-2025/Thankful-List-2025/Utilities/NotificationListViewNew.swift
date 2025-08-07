@@ -20,28 +20,33 @@ struct NotificationListViewNew: View {
     
     var body: some View {
         NavigationView {
-            List {
-                ForEach(notifications) { item in
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(item.request.content.title)
-                            .font(.headline)
-                        
-                        Text(item.request.content.body)
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                        
-                        if let _ = item.dateComponents {
-                            Text("Scheduled for: \(formattedDate(from: item.dateComponents))")
-                                .font(.caption)
-                                .foregroundColor(.gray)
+            if !notifications.isEmpty {
+                List {
+                    ForEach(notifications) { item in
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(item.request.content.title)
+                                .font(.headline)
+                            
+                            Text(item.request.content.body)
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                            
+                            if let _ = item.dateComponents {
+                                Text("Scheduled for: \(formattedDate(from: item.dateComponents))")
+                                    .font(.caption)
+                                    .foregroundColor(.gray)
+                            }
                         }
+                        .padding(.vertical, 4)
                     }
-                    .padding(.vertical, 4)
+                    .onDelete(perform: deleteNotification)
                 }
-                .onDelete(perform: deleteNotification)
+                .navigationTitle("Scheduled Notifications")
+                .navigationBarTitleDisplayMode(.inline)
+                .onAppear(perform: loadPendingNotifications)
+            } else {
+                ContentUnavailableView("You have no scheduled notifications yet.", systemImage: "clock.badge.checkmark", description: Text("When you add noifications to your list, they will appear here."))
             }
-            .navigationTitle("Scheduled Notifications")
-            .onAppear(perform: loadPendingNotifications)
         }
     }
     

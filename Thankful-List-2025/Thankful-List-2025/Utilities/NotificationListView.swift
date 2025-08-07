@@ -11,6 +11,7 @@ import UserNotifications
 
 struct NotificationListView: View {
     @State private var pendingNotifications: [UNNotificationRequest] = []
+    @State private var requestId: String = ""
 
     var body: some View {
         NavigationView {
@@ -22,6 +23,7 @@ struct NotificationListView: View {
                         Text(request.content.body)
                             .font(.subheadline)
                         if let trigger = request.trigger as? UNCalendarNotificationTrigger {
+                            requestId = request.identifier
                             let weekdaySymbols = DateFormatter().weekdaySymbols
                             let day = trigger.dateComponents.weekday ?? 0
                             let hour = trigger.dateComponents.hour ?? 0
@@ -30,6 +32,7 @@ struct NotificationListView: View {
                         }
                     }
                 }
+//                .onDelete(perform: removeNotification(withIdentifier: req))
             }
             .navigationTitle("Scheduled Notifications")
             .onAppear(perform: fetchPendingNotifications)
@@ -42,5 +45,15 @@ struct NotificationListView: View {
                 self.pendingNotifications = requests
             }
         }
+    }
+    
+    func removeNotification(withIdentifier id: String) {
+        let center = UNUserNotificationCenter.current()
+        
+        // Remove pending (scheduled but not delivered) notifications
+        center.removePendingNotificationRequests(withIdentifiers: [id])
+        
+        // Remove delivered (already shown) notifications
+        center.removeDeliveredNotifications(withIdentifiers: [id])
     }
 }
